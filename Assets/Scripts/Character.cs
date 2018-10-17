@@ -6,7 +6,7 @@ public abstract class Character : MonoBehaviour
     protected float moveSpeed = 4f;
     protected Vector2 moveDirection;
     [SerializeField]
-    private Vector2 lastMoveDirection;
+    protected Vector2 lastMoveDirection;
     [SerializeField]
     private bool isMoving;
 
@@ -17,7 +17,7 @@ public abstract class Character : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
     }
 
-    protected virtual void Update()
+    protected virtual void FixedUpdate()
     {
         Movement(moveDirection);
     }
