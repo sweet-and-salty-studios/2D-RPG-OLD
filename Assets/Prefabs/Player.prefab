@@ -36,9 +36,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4665280204141698}
-  - component: {fileID: 114027735947583290}
   - component: {fileID: 61090408326080970}
   - component: {fileID: 50964634788665836}
+  - component: {fileID: 114027735947583290}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -62,21 +62,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1989111985900096
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4871095723853778}
-  m_Layer: 0
-  m_Name: FirePoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!4 &4206604111802428
 Transform:
   m_ObjectHideFlags: 1
@@ -85,7 +70,7 @@ Transform:
   m_GameObject: {fileID: 1177824966428392}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 4446791561634830}
   m_Father: {fileID: 4665280204141698}
@@ -111,26 +96,12 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1490832525596782}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.5, y: -0.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4206604111802428}
-  - {fileID: 4871095723853778}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4871095723853778
-Transform:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1989111985900096}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4665280204141698}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &50964634788665836
 Rigidbody2D:
@@ -164,7 +135,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0, y: 0}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -175,7 +146,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.5, y: 0.5}
+  m_Size: {x: 0.25, y: 0.25}
   m_EdgeRadius: 0
 --- !u!95 &95797625713550248
 Animator:
@@ -186,7 +157,7 @@ Animator:
   m_GameObject: {fileID: 1177824966428392}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: f1d45f5fb40dcff4d8039a42b07ae7e3, type: 2}
+  m_Controller: {fileID: 9100000, guid: 64444909f057d78408e1c6669c351895, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -208,12 +179,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 2
   lastMoveDirection: {x: 0, y: 0}
-  isMoving: 0
   hitLayer:
     serializedVersion: 2
-    m_Bits: 0
-  slashEffectPrefab: {fileID: 1969020864941364, guid: eede4d6ea17910444852074ec3b74446,
-    type: 2}
+    m_Bits: 1
   directionInputs: {x: 0, y: 0}
 --- !u!212 &212567593221351286
 SpriteRenderer:
@@ -258,7 +226,7 @@ SpriteRenderer:
   m_Size: {x: 1.28, y: 1.28}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!212 &212891819386464924
@@ -296,12 +264,12 @@ SpriteRenderer:
   m_SortingLayerID: -2100915951
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300024, guid: b228b062502ac9944b0869212143aa9e, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: ac04853b34abf0b44b01181bff879dcc, type: 3}
+  m_Color: {r: 0.13932894, g: 0.3169146, b: 0.9528302, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.28, y: 1.28}
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

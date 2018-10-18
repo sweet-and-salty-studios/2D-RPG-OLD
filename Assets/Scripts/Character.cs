@@ -7,14 +7,24 @@ public abstract class Character : MonoBehaviour
     protected Vector2 moveDirection;
     [SerializeField]
     protected Vector2 lastMoveDirection;
-    [SerializeField]
-    private bool isMoving;
 
-    private Animator animator;
+    protected float maxHealth = 100f;
+    protected float maxMana = 100f;
 
-    private void Awake()
+    protected float currentHealth;
+    protected float currentMana;
+
+    //private Animator animator;
+
+    protected virtual void Awake()
     {
-        animator = GetComponentInChildren<Animator>();
+        //animator = GetComponentInChildren<Animator>();
+    }
+
+    protected virtual void Start()
+    {
+        currentHealth = maxHealth;
+        currentMana = maxMana;
     }
 
     protected virtual void FixedUpdate()
@@ -24,22 +34,21 @@ public abstract class Character : MonoBehaviour
 
     private void Movement(Vector2 moveDirection)
     {
-        isMoving = false;
-        isMoving = moveDirection != Vector2.zero ? true : false;
-        animator.SetBool("IsMoving", isMoving);
-
-        if (isMoving)
+        if(moveDirection != Vector2.zero)
         {
             transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
+            //animator.SetFloat("X", moveDirection.x);
+            //animator.SetFloat("Y", moveDirection.y);
 
-            animator.SetFloat("X", moveDirection.x);
-            animator.SetFloat("Y", moveDirection.y);
+            //animator.SetBool("IsMoving", true);
         }
         else
         {
             lastMoveDirection = moveDirection;
-            animator.SetFloat("Last X", lastMoveDirection.x);
-            animator.SetFloat("Last Y", lastMoveDirection.y);
+            //animator.SetFloat("Last X", lastMoveDirection.x);
+            //animator.SetFloat("Last Y", lastMoveDirection.y);
+
+            //animator.SetBool("IsMoving", false);
         }
     }
 }

@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
-public class UIManager : MonoBehaviour
+public class UIManager : Singelton<UIManager>
 {
     private GameObject inventoryPanel;
 
     private void Awake()
     {
-        inventoryPanel = transform.Find("InventoryPanel").gameObject;
+        inventoryPanel = transform.GetChild(0).transform.Find("InventoryPanel").gameObject;
     }
 
     private void Start()
