@@ -2,8 +2,13 @@
 
 public class CharacterMovementModel : MonoBehaviour
 {
-    [SerializeField]
-    private float movementSpeed = 2f;
+    private readonly float movementSpeed = 2f;
+    private Rigidbody2D rb2d;
+
+    private void Awake()
+    {
+        rb2d = GetComponent<Rigidbody2D>();
+    }
 
     public Vector2 MovementDirection
     {
@@ -31,13 +36,11 @@ public class CharacterMovementModel : MonoBehaviour
 
     private void UpdateMovement()
     {
-        if(MovementDirection == Vector2.zero)
+        if(MovementDirection != Vector2.zero)
         {
-            return;
+            MovementDirection.Normalize();
         }
 
-        MovementDirection.Normalize();
-
-        transform.Translate(MovementDirection * movementSpeed * Time.deltaTime);
+        rb2d.velocity = MovementDirection * movementSpeed;
     }
 }
