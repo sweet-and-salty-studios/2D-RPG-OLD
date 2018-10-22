@@ -24,19 +24,19 @@ public class CharacterMovementModel : MonoBehaviour
         }
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         UpdateMovement();
     }
 
     public void SetDirection(Vector2 direction)
     {
-        MovementDirection = new Vector3(direction.x, direction.y, 0);
+        MovementDirection = new Vector2(direction.x, direction.y);
     }
 
     private void UpdateMovement()
     {
-        if(MovementDirection != Vector2.zero)
+        if (MovementDirection != Vector2.zero)
         {
             MovementDirection.Normalize();
         }

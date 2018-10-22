@@ -7,6 +7,15 @@ public class CharacterMovementKeyboardController : BaseCharacterMovementControll
     private void Update()
     {
         UpdateDirection();
+        UpdateAction();
+    }
+
+    private void UpdateAction()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            OnActionPressed();
+        }
     }
 
     private void UpdateDirection()
