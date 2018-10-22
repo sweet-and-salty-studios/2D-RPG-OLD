@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Chest : Interactable
+public class InteractableChest : BaseInteractable
 {
     private Animator animator;
 
@@ -12,5 +12,11 @@ public class Chest : Interactable
     private void OpenChest()
     {
         animator.SetTrigger("Open");
+    }
+
+    public override void OnInteract()
+    {
+        base.OnInteract();
+        OpenChest();
     }
 }

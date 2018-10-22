@@ -12,7 +12,7 @@ public class GameMaster : Singelton<GameMaster>
 
     private void Awake()
     {
-        mainCharacterPrefab = Resources.Load<GameObject>("Prefabs/MainCharacter");
+        mainCharacterPrefab = Resources.Load<GameObject>("Prefabs/Characters/MainCharacter");
         MainCharacter = SpawnObjectInstance(mainCharacterPrefab);
     }
 
