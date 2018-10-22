@@ -1,43 +1,22 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CharacterInteractionModel : MonoBehaviour
 {
-    private List<Interactable> interactables = new List<Interactable>();
+    private Vector2 InteractPoint = Vector2.one;
+    private LayerMask interactableLayer;
+
+    private void Start()
+    {
+        interactableLayer = LayerMask.GetMask("Interactable");
+    }
 
     public void OnInteract()
     {
-        for (int i = 0; i < interactables.Count; i++)
+        var hits = Physics2D.OverlapBoxAll(InteractPoint, Vector2.one,1f);
+        Debug.Log(hits.Length);
+        foreach (var hit in hits)
         {
-            Debug.Log("Interactables: " + ( i + 1 ) + " " + interactables[i].name);
-        }   
-    }
-
-    private Interactable FindUsableInteractable()
-    {
-        for (int i = 0; i < interactables.Count; i++)
-        {
-            float distanceToInteractable = Vector2.Distance(transform.position, interactables[i].transform.position);
-
-            Debug.Log("Interactables: " + (i + 1) + " " + interactables[i].name + " " + distanceToInteractable);
+            Debug.Log(hit.name);
         }
-
-        return null;
-    }
-
-    public void RegisterInteractable(Interactable newInteractable)
-    {
-        if (interactables.Contains(newInteractable))
-        {
-            return;
-        }
-
-        Debug.Log("Interactable has registered: " + newInteractable.name, newInteractable);
-        interactables.Add(newInteractable);
-    }
-    public void UnregisterInteractable(Interactable oldInteractable)
-    {
-        Debug.Log("Interactable has removed: " + oldInteractable.name, oldInteractable);
-        interactables.Remove(oldInteractable);
     }
 }
