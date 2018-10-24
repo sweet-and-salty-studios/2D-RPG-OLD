@@ -5,14 +5,10 @@ public class CharacterInteractionModel : MonoBehaviour
     private Character character;
 
     private Vector2 interactablePoint = Vector2.zero;
-    private LayerMask interactableLayer;
-    private new Collider2D collider2D;
 
     private void Awake()
     {
-        interactableLayer = LayerMask.GetMask("Interactable");
         character = GetComponent<Character>();
-        collider2D = GetComponent<Collider2D>();
     }
 
     private void Start()
@@ -22,7 +18,7 @@ public class CharacterInteractionModel : MonoBehaviour
 
     private Vector2 CalculateInteractablePoint()
     {
-        return (Vector2)collider2D.bounds.center + (character.MovementModel.FaceDirection);
+        return (Vector2)character.Collider2D.bounds.center + (character.MovementModel.FaceDirection * 0.5f);
     }
 
     public void OnInteract()
@@ -33,7 +29,7 @@ public class CharacterInteractionModel : MonoBehaviour
         {
             return;
         }
-
+        
         usableInteractable.OnInteract(character);
     }
 
@@ -41,13 +37,12 @@ public class CharacterInteractionModel : MonoBehaviour
     {
         interactablePoint = CalculateInteractablePoint();
 
-        var interactableColliders = Physics2D.OverlapPointAll(interactablePoint, interactableLayer);
+        var interactableColliders = Physics2D.OverlapPointAll(interactablePoint, character.InteractableLayer);
 
         foreach (var targetInteractableCollider in interactableColliders)
         {
             Debug.Log(targetInteractableCollider.gameObject.name, gameObject);
-            var interactable = targetInteractableCollider.GetComponent<BaseInteractable>();
-            return interactable;
+            return targetInteractableCollider.GetComponent<BaseInteractable>();
         }
 
         return null;
@@ -55,10 +50,20 @@ public class CharacterInteractionModel : MonoBehaviour
 
     //private void OnDrawGizmos()
     //{
-    //    Gizmos.color = Color.red;
+    //    if (!UnityEditor.EditorApplication.isPlaying)
+    //    {
+    //        return;
+    //    }
+
+    //    if ((!Input.GetKey(KeyCode.Space) || character.MovementModel.IsMoving) && foo)
+    //    {
+    //        return;
+    //    }
+        
+    //    Gizmos.color = Color.blue;
     //    float size = 0.2f;
 
     //    Gizmos.DrawLine(interactablePoint - Vector2.up * size, interactablePoint + Vector2.up * size);
-    //    Gizmos.DrawLine(interactablePoint - Vector2.left * size, interactablePoint + Vector2.left * size);          
+    //    Gizmos.DrawLine(interactablePoint - Vector2.left * size, interactablePoint + Vector2.left * size);      
     //}
 }

@@ -2,12 +2,12 @@
 
 public class CharacterMovementView : MonoBehaviour
 {
-    private CharacterMovementModel characterMovementModel;
+    private Character character;
     private Animator animator;
 
 	private void Awake ()
     {
-        characterMovementModel = GetComponent<CharacterMovementModel>();
+        character = GetComponent<Character>();
         animator = GetComponentInChildren<Animator>();
 	}
 
@@ -18,7 +18,7 @@ public class CharacterMovementView : MonoBehaviour
 
     private void UpdateDirectionAnimation()
     {
-        Vector2 direction = characterMovementModel.MovementDirection;
+        Vector2 direction = character.MovementModel.MovementDirection;
 
         if(direction != Vector2.zero)
         {
@@ -26,7 +26,7 @@ public class CharacterMovementView : MonoBehaviour
             animator.SetFloat("DirectionY", direction.y);
         }
 
-        animator.SetBool("IsMoving", characterMovementModel.IsMoving);
+        animator.SetBool("IsMoving", character.MovementModel.IsMoving);
     }
 
     public void AnimateAttack()

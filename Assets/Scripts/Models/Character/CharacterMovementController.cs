@@ -1,12 +1,8 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CharacterMovementController : MonoBehaviour
 {
     private Character character;
-
-    private Coroutine attackCoroutine;
-    private readonly float attackDuration = 0.4f;
 
     private void Awake()
     {
@@ -45,22 +41,6 @@ public class CharacterMovementController : MonoBehaviour
             return;
         }
 
-        if (attackCoroutine == null)
-        {
-            StartCoroutine(IAttack(attackDuration));
-        }    
-    }
-
-    private IEnumerator IAttack(float attackDuration)
-    {
-        character.ChangeCharacterState(CHARACTER_STATE.ATTACK);
-
-        character.MovementModel.OnAttack();
-        character.MovementView.AnimateAttack();
-
-        yield return new WaitForSeconds(attackDuration);
-
-        character.ChangeCharacterState(CHARACTER_STATE.DEFAULT);
-        attackCoroutine = null;
+        character.MovementModel.DoAttack();      
     }
 }

@@ -1,12 +1,24 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class CharacterMovementModel : MonoBehaviour
 {
-    private readonly float movementSpeed = 2f;
+    private Character character;
+    private readonly float movementSpeed = 3f;
     private Rigidbody2D rb2d;
+
+    private Coroutine attackCoroutine;
+    private readonly float attackDuration = 0.4f;
+
+    public bool IsAttacking
+    {
+        get;
+        private set;
+    }
 
     private void Awake()
     {
+        character = GetComponent<Character>();
         rb2d = GetComponent<Rigidbody2D>();
     }
 
@@ -55,22 +67,62 @@ public class CharacterMovementModel : MonoBehaviour
         rb2d.velocity = MovementDirection * movementSpeed;
     }
 
-    public void OnAttack()
+    public void DoAttack()
     {
-        var hitColliders = Physics2D.OverlapBoxAll((Vector2)transform.position + FaceDirection, Vector2.one / 2, 1f);
+        if (attackCoroutine == null)
+        {
+            StartCoroutine(IAttack(attackDuration));
+        }
+    }
 
-        if(hitColliders.Length > 0)
+    public void SearchAttackHits()
+    {
+        var hitColliders = Physics2D.OverlapBoxAll((Vector2)transform.position + FaceDirection * 0.5f, Vector2.one * 0.5f, 0f, character.InteractableLayer);
+
+        if (hitColliders.Length > 0)
         {
             foreach (var hitCollider in hitColliders)
             {
-                
+                var hitable = hitCollider.GetComponent<Hitable>();
+
+                if(hitable == null)
+                {
+                    continue;
+                }
+
+                hitable.OnHit(character.CurrentWeapon);
             }
         }
     }
 
+    private IEnumerator IAttack(float attackDuration)
+    {
+        IsAttacking = true;
+        character.ChangeCharacterState(CHARACTER_STATE.ATTACK);
+
+        SearchAttackHits();
+        character.MovementView.AnimateAttack();
+
+        yield return new WaitForSeconds(attackDuration);
+
+        character.ChangeCharacterState(CHARACTER_STATE.DEFAULT);
+        IsAttacking = false;
+        attackCoroutine = null;
+    }
+
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
+        if (!UnityEditor.EditorApplication.isPlaying)
+        {
+            return;
+        }
+
+        if (!IsAttacking)
+        {
+            return;
+        }
+
+        Gizmos.color = new Color(1, 0, 0, .5f);
         Gizmos.DrawCube((Vector2)transform.position + FaceDirection * 0.5f , Vector2.one * 0.5f);
     }
 }
