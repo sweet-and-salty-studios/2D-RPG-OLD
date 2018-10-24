@@ -28,4 +28,9 @@ public class CharacterMovementView : MonoBehaviour
 
         animator.SetBool("IsMoving", characterMovementModel.IsMoving);
     }
+
+    public void AnimateAttack()
+    {
+        animator.SetTrigger("Attack");
+    }
 }

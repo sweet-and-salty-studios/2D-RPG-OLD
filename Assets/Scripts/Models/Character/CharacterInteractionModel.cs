@@ -2,15 +2,16 @@
 
 public class CharacterInteractionModel : MonoBehaviour
 {
+    private Character character;
+
     private Vector2 interactablePoint = Vector2.zero;
     private LayerMask interactableLayer;
-    private CharacterMovementModel characterMovementModel;
     private new Collider2D collider2D;
 
     private void Awake()
     {
         interactableLayer = LayerMask.GetMask("Interactable");
-        characterMovementModel = GetComponent<CharacterMovementModel>();
+        character = GetComponent<Character>();
         collider2D = GetComponent<Collider2D>();
     }
 
@@ -21,7 +22,7 @@ public class CharacterInteractionModel : MonoBehaviour
 
     private Vector2 CalculateInteractablePoint()
     {
-        return (Vector2)collider2D.bounds.center + (characterMovementModel.FaceDirection);
+        return (Vector2)collider2D.bounds.center + (character.MovementModel.FaceDirection);
     }
 
     public void OnInteract()
@@ -33,7 +34,7 @@ public class CharacterInteractionModel : MonoBehaviour
             return;
         }
 
-        usableInteractable.OnInteract();
+        usableInteractable.OnInteract(character);
     }
 
     private BaseInteractable FindInteractable()
@@ -52,13 +53,12 @@ public class CharacterInteractionModel : MonoBehaviour
         return null;
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        float size = 0.2f;
+    //private void OnDrawGizmos()
+    //{
+    //    Gizmos.color = Color.red;
+    //    float size = 0.2f;
 
-        Gizmos.DrawLine(interactablePoint - Vector2.up * size, interactablePoint + Vector2.up * size);
-        Gizmos.DrawLine(interactablePoint - Vector2.left * size, interactablePoint + Vector2.left * size);
-            
-    }
+    //    Gizmos.DrawLine(interactablePoint - Vector2.up * size, interactablePoint + Vector2.up * size);
+    //    Gizmos.DrawLine(interactablePoint - Vector2.left * size, interactablePoint + Vector2.left * size);          
+    //}
 }

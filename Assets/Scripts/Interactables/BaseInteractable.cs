@@ -2,7 +2,7 @@
 
 public abstract class BaseInteractable : MonoBehaviour
 {
-    public virtual void OnInteract()
+    public virtual void OnInteract(Character character)
     {
         
     }

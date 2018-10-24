@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class CharacterMovementKeyboardController : BaseCharacterMovementController
+public class CharacterMovementKeyboardController : CharacterMovementController
 {
     private Vector2 newDirection;
 
@@ -8,6 +8,7 @@ public class CharacterMovementKeyboardController : BaseCharacterMovementControll
     {
         UpdateDirection();
         UpdateAction();
+        UpdateAttack();
     }
 
     private void UpdateAction()
@@ -15,6 +16,14 @@ public class CharacterMovementKeyboardController : BaseCharacterMovementControll
         if (Input.GetKeyDown(KeyCode.Space))
         {
             OnActionPressed();
+        }
+    }
+
+    private void UpdateAttack()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            OnAttackPressed();
         }
     }
 
