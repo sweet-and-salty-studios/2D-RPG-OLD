@@ -2,10 +2,9 @@
 
 public class CameraEngine : Singelton<CameraEngine>
 {
-    private Vector2 maxPosition = new Vector2(7, 8);
-    private Vector2 minPosition = new Vector2(-10, -8);
-    [SerializeField]
-    private float smooth = 1f;
+    private Vector2 maxPosition = new Vector2(3, 6);
+    private Vector2 minPosition = new Vector2(-3, -6);
+    private readonly float smooth = 10f;
 
     public Vector2 MaxPosition
     {
@@ -40,10 +39,11 @@ public class CameraEngine : Singelton<CameraEngine>
 
         if(transform.position != currentTarget.position)
         {
+            Vector2 currentPosition = transform.position;
             Vector2 targetPosition = currentTarget.position;
             targetPosition.x = Mathf.Clamp(targetPosition.x, minPosition.x, maxPosition.x);
             targetPosition.y = Mathf.Clamp(targetPosition.y, minPosition.y, maxPosition.y);
-            transform.position = Vector2.Lerp(transform.position, targetPosition, smooth * Time.deltaTime);
+            transform.position = Vector2.Lerp(currentPosition, targetPosition, smooth * Time.deltaTime);
         }
     }
 }
