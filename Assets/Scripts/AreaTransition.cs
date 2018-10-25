@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class RoomTransition : MonoBehaviour
+public class AreaTransition : MonoBehaviour
 {
     private readonly string mainCharacterTag = "Player";
     
@@ -15,8 +15,8 @@ public class RoomTransition : MonoBehaviour
     {
         if (other.CompareTag(mainCharacterTag))
         {
-            CameraEngine.Instance.MinPosition += newMaxPosition;
-            CameraEngine.Instance.MaxPosition += newMinPosition;
+            CameraEngine.Instance.MinPosition = newMaxPosition;
+            CameraEngine.Instance.MaxPosition = newMinPosition;
             CameraEngine.Instance.transform.position = newMinPosition;
             other.transform.position += (Vector3)newCharacterPlacement;
         }
