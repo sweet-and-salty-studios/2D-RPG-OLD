@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <!--Tiled2Unity generated xml data-->
 <!--Do not modify by hand-->
-<!--Last exported: 25.10.2018 6.38.15-->
+<!--Last exported: 25.10.2018 7.37.05-->
 <Tiled2Unity version="1.0.13.2">
   <AssignMaterial mesh="StartArea_mesh_0001" material="Overworld" />
   <AssignMaterial mesh="StartArea_mesh_0002" material="Overworld" />
@@ -24,7 +24,7 @@
       <TileLayer offsetX="0" offsetY="0" />
       <GameObject name="Overworld" x="0" y="0" mesh="StartArea_mesh_0004" sortingLayerName="" sortingOrder="3" opacity="1" />
     </GameObject>
-    <GameObject name="Colliders" x="0" y="0" z="0">
+    <GameObject name="Collisions" x="0" y="0" z="0">
       <ObjectLayer offsetX="0" offsetY="0" color="#ff808080" />
       <GameObject name="RectangleObject" x="0" y="0" rotation="0" layer="">
         <RectangleObjectComponent tmx-object-id="7" tmx-object-name="" tmx-object-type="" tmx-object-x="0" tmx-object-y="0" tmx-object-width="16" tmx-object-height="160" tmx-object-rotation="0" />
