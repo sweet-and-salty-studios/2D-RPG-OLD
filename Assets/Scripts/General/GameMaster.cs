@@ -2,7 +2,7 @@
 
 public class GameMaster : Singelton<GameMaster>
 { 
-    private GameObject playerPrefab;
+    //private GameObject playerPrefab;
 
     public GameObject PlayerGameObject
     {
@@ -12,8 +12,8 @@ public class GameMaster : Singelton<GameMaster>
 
     private void Awake()
     {
-        playerPrefab = Resources.Load<GameObject>("Prefabs/Characters/Player");
-        PlayerGameObject = SpawnObjectInstance(playerPrefab);
+        //playerPrefab = Resources.Load<GameObject>("Prefabs/Characters/Player");
+        //PlayerGameObject = SpawnObjectInstance(playerPrefab);
     }
 
     private void Start()
