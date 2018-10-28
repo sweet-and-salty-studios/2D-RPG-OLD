@@ -18,7 +18,7 @@ public class CharacterInteractionModel : MonoBehaviour
 
     private Vector2 CalculateInteractablePoint()
     {
-        return (Vector2)character.Collider2D.bounds.center + (character.MovementModel.MovementDirection);
+        return (Vector2)character.Collider2D.bounds.center + (character.MovementModel.FaceDirection);
     }
 
     public void OnInteract()
@@ -35,9 +35,10 @@ public class CharacterInteractionModel : MonoBehaviour
 
     private BaseInteractable FindInteractable()
     {
-        interactablePoint = CalculateInteractablePoint();
+        //interactablePoint = CalculateInteractablePoint();
 
-        var interactableColliders = Physics2D.OverlapPointAll(interactablePoint, character.InteractableLayer);
+        //var interactableColliders = Physics2D.OverlapPointAll(interactablePoint, character.InteractableLayer);
+        var interactableColliders = Physics2D.OverlapBoxAll((Vector2)transform.position + character.MovementModel.FaceDirection, Vector2.one * 0.5f, 0f, character.InteractableLayer);
 
         foreach (var targetInteractableCollider in interactableColliders)
         {
@@ -55,7 +56,12 @@ public class CharacterInteractionModel : MonoBehaviour
             return;
         }
 
+        if (!Input.GetButton("Jump"))
+        {
+            return;
+        }
+
         Gizmos.color = new Color(1, 0, 1, 0.5f);
-        Gizmos.DrawCube((Vector2)transform.position + character.MovementModel.MovementDirection, Vector2.one * 0.5f);
+        Gizmos.DrawCube((Vector2)transform.position + character.MovementModel.FaceDirection, Vector2.one * 0.5f);
     }
 }

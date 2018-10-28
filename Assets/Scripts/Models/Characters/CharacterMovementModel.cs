@@ -29,6 +29,12 @@ public class CharacterMovementModel : MonoBehaviour
         private set;
     }
 
+    public Vector2 FaceDirection
+    {
+        get;
+        private set;
+    }
+
     public bool IsMoving
     {
         get
@@ -45,6 +51,11 @@ public class CharacterMovementModel : MonoBehaviour
     public void SetDirection(Vector2 direction)
     {
         MovementDirection = new Vector2(direction.x, direction.y);
+
+        if(direction != Vector2.zero)
+        {
+            FaceDirection = MovementDirection;
+        }
     }
 
     private void UpdateMovement()
@@ -67,7 +78,7 @@ public class CharacterMovementModel : MonoBehaviour
 
     public void SearchAttackHits()
     {
-        var hitColliders = Physics2D.OverlapBoxAll((Vector2)transform.position + MovementDirection * 0.5f, Vector2.one * 0.5f, 0f, character.InteractableLayer);
+        var hitColliders = Physics2D.OverlapBoxAll((Vector2)transform.position + FaceDirection, Vector2.one * 0.5f, 0f, character.InteractableLayer);
 
         if (hitColliders.Length > 0)
         {
@@ -113,6 +124,6 @@ public class CharacterMovementModel : MonoBehaviour
         }
 
         Gizmos.color = new Color(1, 0, 0, 0.5f);
-        Gizmos.DrawCube((Vector2)transform.position + MovementDirection * 0.5f , Vector2.one * 0.5f);
+        Gizmos.DrawCube((Vector2)transform.position + FaceDirection , Vector2.one * 0.5f);
     }
 }
