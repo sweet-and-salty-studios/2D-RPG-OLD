@@ -6,4 +6,9 @@ public abstract class BaseInteractable : MonoBehaviour
     {
         
     }
+
+    protected virtual void GiveItem(Character character, ItemType itemType, int amount)
+    {
+        character.InventoryModel.AddItem(itemType, amount);
+    }
 }

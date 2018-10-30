@@ -1,30 +1,19 @@
 ﻿using UnityEngine;
 
 public class GameMaster : Singelton<GameMaster>
-{ 
-    //private GameObject playerPrefab;
+{
+    private ItemDatabase itemDatabase;
 
-    public GameObject PlayerGameObject
+    public ItemDatabase ItemDatabase
     {
-        get;
-        private set;
-    }
+        get
+        {
+            if(itemDatabase == null)
+            {
+                itemDatabase = Resources.Load<ItemDatabase>("Databases/ItemDatabase");
+            }
 
-    private void Awake()
-    {
-        //playerPrefab = Resources.Load<GameObject>("Prefabs/Characters/Player");
-        //PlayerGameObject = SpawnObjectInstance(playerPrefab);
-    }
-
-    private void Start()
-    {
-        CameraEngine.Instance.SetTarget(GameObject.FindGameObjectWithTag("Player").transform);
-    }
-
-    private GameObject SpawnObjectInstance(GameObject prefab, Vector2 position = new Vector2(), Quaternion rotation = new Quaternion())
-    {
-        var newObjectInstance = Instantiate(prefab, position, rotation);
-        newObjectInstance.name = prefab.name;
-        return newObjectInstance;
+            return itemDatabase;
+        }
     }
 }

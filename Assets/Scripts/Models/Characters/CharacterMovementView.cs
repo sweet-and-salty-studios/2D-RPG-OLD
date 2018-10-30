@@ -3,16 +3,31 @@
 public class CharacterMovementView : MonoBehaviour
 {
     private Character character;
-    private Animator animator;
-    private Transform graphics;
+
+    public Animator Animator
+    {
+        get;
+        private set;
+    }
+    public Transform Graphics
+    {
+        get;
+        private set;
+    }
+    public Transform WeaponPivot
+    {
+        get;
+        private set;
+    }
 
     private void Awake ()
     {
         character = GetComponent<Character>();
-        animator = GetComponentInChildren<Animator>();
-        graphics = transform.Find("Graphics");
+        Animator = GetComponentInChildren<Animator>();
+        Graphics = transform.Find("Graphics");
+        WeaponPivot = Graphics.transform.Find("WeaponPivot");
+        WeaponPivot.gameObject.SetActive(false);
     }
-
 
     private void Update()
     {
@@ -25,16 +40,21 @@ public class CharacterMovementView : MonoBehaviour
 
         if(direction != Vector2.zero)
         {
-            animator.SetFloat("DirectionX", direction.x);
-            animator.SetFloat("DirectionY", direction.y);
-            graphics.localScale = new Vector2((direction.x > 0 ? -1 : 1), 1);     
+            Animator.SetFloat("DirectionX", direction.x);
+            Animator.SetFloat("DirectionY", direction.y);
+            Graphics.localScale = new Vector2((direction.x > 0 ? -1 : 1), 1);     
         }
 
-        animator.SetBool("IsMoving", character.MovementModel.IsMoving);
+            Animator.SetBool("IsMoving", character.MovementModel.IsMoving);
     }
 
     public void AnimateAttack()
     {
-        animator.SetTrigger("Attack");
+        Animator.SetTrigger("Attack");
+    }
+
+    public void UpdateAnimatePickUp(bool isPickingUp)
+    {       
+        Animator.SetBool("IsPickingUp", isPickingUp);
     }
 }

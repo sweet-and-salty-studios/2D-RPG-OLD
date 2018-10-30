@@ -20,7 +20,7 @@ public class InteractableSign : BaseInteractable
         character.ChangeCharacterState(CHARACTER_STATE.INTERACT);
         character.InteractionBubble.OpenInteractionBubble(description, 0);
 
-        yield return new WaitUntil(() => Input.GetKeyUp(KeyCode.Space));
+        yield return new WaitUntil(() => InputManager.Instance.ActionButtonUp);
 
         character.InteractionBubble.CloseInteractionBubble();
         character.ChangeCharacterState(CHARACTER_STATE.DEFAULT);

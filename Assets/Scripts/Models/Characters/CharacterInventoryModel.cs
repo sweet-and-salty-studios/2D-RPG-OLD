@@ -3,7 +3,13 @@ using UnityEngine;
 
 public class CharacterInventoryModel : MonoBehaviour
 {
+    private Character character;
     private Dictionary<ItemType, int> items = new Dictionary<ItemType, int>();
+
+    private void Awake()
+    {
+        character = GetComponent<Character>();
+    }
 
     public void AddItem(ItemType itemType, int amount = 1)
     {
@@ -14,6 +20,16 @@ public class CharacterInventoryModel : MonoBehaviour
         else
         {
             items.Add(itemType, amount);
+        }
+
+        if(amount > 0)
+        {
+            var itemData = GameMaster.Instance.ItemDatabase.FindItemData(itemType);
+
+            if (itemData.IsEquippable)
+            {
+                character.MovementModel.EquipWeapon(itemData);
+            }
         }
     }
 

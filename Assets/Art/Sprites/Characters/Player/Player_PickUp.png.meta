@@ -1,10 +1,14 @@
 fileFormatVersion: 2
-guid: 0a1ea47e69f7bde43937924ae62f9a94
+guid: 6c5ba1525dad83447916b3d2c1be833c
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Player_Idle_0
-    21300002: Player_Idle_1
-    21300004: Player_Idle_2
+    21300000: Player_Pickup_0
+    21300002: Player_Pickup_1
+    21300004: Player_Pickup_2
+    21300006: Player_Pickup_3
+    21300008: Player_Pickup_4
+    21300010: Player_Pickup_5
+    21300012: Player_Pickup_6
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -109,12 +113,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Player_Idle_0
+      name: Player_Pickup_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 192
-        width: 32
+        y: 0
+        width: 48
         height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -123,18 +127,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: db74b1a3bbce55846bf275c33fda6c5f
+      spriteID: 1336499d44f120f4caac65c781d03b51
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_Idle_1
+      name: Player_Pickup_1
       rect:
         serializedVersion: 2
-        x: 0
-        y: 144
-        width: 32
+        x: 48
+        y: 0
+        width: 48
         height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -143,18 +147,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c14de6f2313cc1e428b5352c9126b7d4
+      spriteID: ecb0b34f866a9fd458cf79fdfdedc045
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_Idle_2
+      name: Player_Pickup_2
       rect:
         serializedVersion: 2
-        x: 0
-        y: 96
-        width: 32
+        x: 96
+        y: 0
+        width: 48
         height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -163,7 +167,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7c57db1bc1333f84dafb0c251068aaa0
+      spriteID: ec46ef0baf5f5cc40a2139842a1da389
       vertices: []
       indices: 
       edges: []
@@ -171,7 +175,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 560b92ed1afa508449fb88ac75323010
+    spriteID: 900235afe7ea40b4a894a0e9877edd4a
     vertices: []
     indices: 
     edges: []

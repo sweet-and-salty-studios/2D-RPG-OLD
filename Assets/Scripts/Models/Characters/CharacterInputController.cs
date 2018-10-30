@@ -43,4 +43,14 @@ public abstract class CharacterInputController : MonoBehaviour
 
         character.MovementModel.DoAttack();      
     }
+
+    protected void OnRunPressed()
+    {
+        if (character.MovementModel == null || !character.CurrentCharacterState.Equals(CHARACTER_STATE.DEFAULT))
+        {
+            return;
+        }
+
+        character.MovementModel.Run();
+    }
 }

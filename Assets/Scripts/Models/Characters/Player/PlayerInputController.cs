@@ -13,7 +13,7 @@ public class PlayerInputController : CharacterInputController
 
     private void UpdateAction()
     {
-        if (Input.GetButton("Jump"))
+        if (InputManager.Instance.ActionButtonDown)
         {
             OnActionPressed();
         }
@@ -21,7 +21,7 @@ public class PlayerInputController : CharacterInputController
 
     private void UpdateAttack()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if (InputManager.Instance.AttackButtonDown)
         {
             OnAttackPressed();
         }
@@ -31,21 +31,26 @@ public class PlayerInputController : CharacterInputController
     {
         newDirection = Vector2.zero;
 
-        if (Input.GetAxisRaw("Horizontal") > 0)
+        if (InputManager.Instance.HorizontalAxis > 0)
         {
             newDirection.x = 1;
         }
-        if (Input.GetAxisRaw("Horizontal") < 0)
+        if (InputManager.Instance.HorizontalAxis < 0)
         {
             newDirection.x = -1;
         }
-        if (Input.GetAxisRaw("Vertical") > 0)
+        if (InputManager.Instance.VerticalAxis > 0)
         {
             newDirection.y = 1;
         }
-        if (Input.GetAxisRaw("Vertical") < 0)
+        if (InputManager.Instance.VerticalAxis < 0)
         {
             newDirection.y = -1;
+        }
+
+        if (InputManager.Instance.RunButton)
+        {
+            OnRunPressed();
         }
 
         SetDirection(newDirection);

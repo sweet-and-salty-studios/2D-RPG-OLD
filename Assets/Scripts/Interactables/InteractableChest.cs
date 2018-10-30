@@ -30,11 +30,11 @@ public class InteractableChest : BaseInteractable
         {          
             animator.SetBool("IsOpen", isOpen = !isOpen);
             openChest = StartCoroutine(IOpenChest(character));
-            GiveItem(character, itemAmount);
+            GiveItem(character, itemInChest, itemAmount);
         }
     }
 
-    private void GiveItem(Character character, int amount)
+    protected override void GiveItem(Character character,ItemType itemInChest, int amount)
     {
         character.InventoryModel.AddItem(itemInChest, itemAmount);
         itemAmount = 0;

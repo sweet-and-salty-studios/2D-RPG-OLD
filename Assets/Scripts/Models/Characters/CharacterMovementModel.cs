@@ -4,18 +4,51 @@ using UnityEngine;
 public class CharacterMovementModel : MonoBehaviour
 {
     private Character character;
-    private readonly float movementSpeed = 3f;
+    private float moveSpeed;
+    private readonly float walkSpeed = 3f;
+    private readonly float runSpeed = 6f;
     private Rigidbody2D rb2d;
 
-    private Coroutine attackCoroutine;
-    private readonly float attackDuration = 0.4f;
+    private Coroutine attackCoroutine, runCoroutine, pickUpCoroutine;
+    private readonly float attackDuration = 0.5f;
+    private readonly float pickUpTime = 2f;
 
+    public Vector2 MovementDirection
+    {
+        get;
+        private set;
+    }
+    public Vector2 FaceDirection
+    {
+        get;
+        private set;
+    }
+    public bool IsMoving
+    {
+        get
+        {
+            return MovementDirection != Vector2.zero ? true : false;
+        }
+    }
     public bool IsAttacking
     {
         get;
         private set;
     }
-    // public bool CanAttack { get; private set; }
+    public bool IsRunning { get; private set; }
+    public bool CanAttack
+    {
+        get
+        {
+            return EquippedWeapon != ItemType.NONE && !IsAttacking ? true : false;
+        }
+    }
+    public ItemType EquippedWeapon
+    {
+        get;
+        private set;
+    }
+    public ItemType CurrentPickingUpObject { get; private set; }
 
     private void Awake()
     {
@@ -23,29 +56,47 @@ public class CharacterMovementModel : MonoBehaviour
         rb2d = GetComponent<Rigidbody2D>();
     }
 
-    public Vector2 MovementDirection
+    private void Start()
     {
-        get;
-        private set;
-    }
-
-    public Vector2 FaceDirection
-    {
-        get;
-        private set;
-    }
-
-    public bool IsMoving
-    {
-        get
-        {
-            return MovementDirection != Vector2.zero ? true : false; 
-        }
+        moveSpeed = walkSpeed;
     }
 
     private void FixedUpdate()
     {
         UpdateMovement();
+    }
+
+    public void EquipWeapon(ItemData itemData)
+    {
+        if(itemData.itemType != ItemType.SWORD)
+        {
+            return;
+        }
+
+        EquippedWeapon = itemData.itemType;
+
+        CreateNewWeapon(itemData);
+
+        CurrentPickingUpObject = itemData.itemType;
+
+        PickUpObject();
+    }
+
+    private void PickUpObject()
+    {
+        if(pickUpCoroutine == null)
+        {
+            StartCoroutine(IPickUp(pickUpTime));
+        }
+    }
+
+    private void CreateNewWeapon(ItemData itemData)
+    {
+        var newWeaponPrefab = itemData.itemPrefab;
+        var newWeapon = Instantiate(newWeaponPrefab, character.MovementView.WeaponPivot).transform;
+        newWeapon.localPosition = Vector2.zero;
+        newWeapon.localRotation = Quaternion.identity;
+        newWeapon.name = newWeaponPrefab.name;
     }
 
     public void SetDirection(Vector2 direction)
@@ -58,6 +109,14 @@ public class CharacterMovementModel : MonoBehaviour
         }
     }
 
+    public void Run()
+    {
+        if (runCoroutine == null && !IsRunning)
+        {
+            StartCoroutine(IRun());
+        }
+    }
+
     private void UpdateMovement()
     {
         if (MovementDirection != Vector2.zero)
@@ -65,12 +124,12 @@ public class CharacterMovementModel : MonoBehaviour
             MovementDirection.Normalize();
         }
 
-        rb2d.velocity = MovementDirection * movementSpeed;
+        rb2d.velocity = MovementDirection * moveSpeed;
     }
 
     public void DoAttack()
     {
-        if (attackCoroutine == null)
+        if (attackCoroutine == null && CanAttack)
         {
             StartCoroutine(IAttack(attackDuration));
         }
@@ -109,6 +168,30 @@ public class CharacterMovementModel : MonoBehaviour
         character.ChangeCharacterState(CHARACTER_STATE.DEFAULT);
         IsAttacking = false;
         attackCoroutine = null;
+    }
+
+    private IEnumerator IPickUp(float pickUpTime)
+    {
+        character.ChangeCharacterState(CHARACTER_STATE.INTERACT);
+        character.MovementView.UpdateAnimatePickUp(true);
+
+        yield return new WaitForSeconds(pickUpTime);
+
+        character.ChangeCharacterState(CHARACTER_STATE.DEFAULT);
+        character.MovementView.UpdateAnimatePickUp(false);
+    }
+
+    private IEnumerator IRun()
+    {
+        IsRunning = true;
+
+        moveSpeed = runSpeed;
+
+        yield return new WaitWhile(() => InputManager.Instance.RunButtonUp);
+
+        moveSpeed = walkSpeed;
+        IsRunning = false;
+        runCoroutine = null;
     }
 
     private void OnDrawGizmos()
